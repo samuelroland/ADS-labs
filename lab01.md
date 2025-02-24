@@ -1,22 +1,30 @@
 ## Lab 01
 > 1. Avec quelle touche se déplace-t-on au début du fichier ?
+
 `g`
 
 > 2. Avec quelle touche se déplace-t-on à la fin du fichier ?
+
 `G`
 
 > 3. Comment peut-on commencer à chercher toutes les occurrences du motif admin ?
+
 `/admin`
 
 > 4. Comment se déplace-t-on à l'occurrence suivante ? Et à la précédente ?
+
 `n` pour next et `N` pour précédent
 
 > 5. Quel est l'effet de taper -i avant une recherche ? Et un -i répété ? Positionnez-vous au début du fichier et cherchez le motif bob.
+
 Taper `-i` dans less directement (sans / attention) permet d'activer ou désactiver la sensivité à la casse
 
 > 6. Que se passe-t-il si vous ouvrez un fichier compressé, par exemple /usr/share/doc/bash/INTRO.gz ?
+
 Décompression à la volée + affichage du txt
+
 > 2. une archive compressée, par exemple /usr/share/doc/apg/php.tar.gz ?
+
 Listing des fichiers dans l'archive
 
 ## Part 2 - Unix
