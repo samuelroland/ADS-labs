@@ -1,6 +1,21 @@
 # TODO
 TODO: titre + entêtes voir consigne
 
+## Task 1 - Exercises on redirection
+
+1.  Run the following commands and tell where stdout and stderr are redirected to
+
+a. `./out > file`: stdout is redirected inside the file named file, and stderr stays on the screen\
+b. `./out 2> file`: stderr is redirected inside the file named file, and stdout stays on the screen\
+c. `./out > file 2>&1`: both stdout and stderr are interleaved and redirected to file\
+d. `./out 2>&1 > file`: stderr is redirected inside the file and stout is displayed on the screen\
+e. `./out &> file`: both stdout and stderr are interleaved and redirected to file
+
+2. What do the following commands do?
+
+a. `cat /usr/share/doc/cron/README | grep -i edit`: List all edit occurrences in the cron README. The case is not sensitive.
+b. `./out 2>&1 | grep –i eeeee`: 
+
 ## Task 2 - Log analysis
 We have verified that the separator in the log files is a tab, `xxd` shows `0x09` which is actually the tab character in the ascii table.
 
