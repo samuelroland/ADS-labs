@@ -125,7 +125,9 @@ cat ads_website.log | awk -F "\t" '{print $17}'  | grep "Windows" | tee useragen
 
 # Task 3 - Conversion to CSV
 ## Commands used to generate the CSV
-```terminal
+`awk` is used to swap the output values of `uniq -c` as it comes out with `nb_accesses, date` instead of the `date, nb_accesses` we want.
+
+```sh
 # 1st command, not using the semi-colon
 echo "date,nb_accesses" > accesses.csv | cat access.log | cut -d ' ' -f4 | cut -c2-12 | sort | uniq -c | awk '{print $2","$1}' >> accesses.csv
 
@@ -133,7 +135,7 @@ echo "date,nb_accesses" > accesses.csv | cat access.log | cut -d ' ' -f4 | cut -
 echo "date,nb_accesses" > accesses.csv;cat access.log | cut -d ' ' -f4 | cut -c2-12 | sort | uniq -c | awk '{print $2","$1}' >> accesses.csv
 ```
 
-## Output
+## CSV Output
 ```csv
 date,nb_accesses
 02/Apr/2017,17
@@ -151,3 +153,10 @@ date,nb_accesses
 30/Mar/2017,382
 31/Mar/2017,133
 ```
+
+## Graph
+![Graph showing the accesses to the server by date](./accesses.png)
+
+We added the missing data by hand to ensure it was represented properly.<br>
+As I am using libreoffice and due to my laptop configuration, it requiers date to be inserted in the american format if we wish for it to be automatically viewed as a `Date`. <br>
+With libreoffice when you open the `csv` you can specify the format for a column and it understands and changes the date to the standard american date format used for the graph.
