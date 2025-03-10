@@ -1,5 +1,6 @@
-# TODO
-TODO: titre + entêtes voir consigne
+# ADS Lab 03 - Pipelines
+**Authors**: Samuel Roland, Antoine Leresche, Nicolas Carbonara  
+**Date**: 2025-03-10
 
 ## Task 1 - Exercises on redirection
 
@@ -75,7 +76,7 @@ Adding this `$` at the end of the regex makes sure we are matching a number at t
 **21 different days in the datetime list**
 
 5. How many accesses were there on 4th March 2021?
-```
+```sh
 > cat ads_website.log | awk -F "\t" '{print $3}' | grep 04/Mar/ | wc -l
 423
 ```
@@ -107,7 +108,6 @@ cat ads_website.log | awk -F "\t" '{print $17}'  | grep "Windows" | wc -l
 1751
 ```
 
-TODO: do we need to repeat the information here or it's just obvious and we don't need to make the results explicit ??
 
 9. Read the documentation for the tee command. Repeat the analysis of the previous question for browsers running on Windows and insert tee into the pipeline such that the user agent strings (including repeats) are written to a file for further analysis (the filename should be useragents.txt ).
 
