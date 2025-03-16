@@ -93,7 +93,7 @@ Adding this `$` at the end of the regex makes sure we are matching a number at t
 
 5. How many accesses were there on 4th March 2021?
     ```sh
-    > cat ads_website.log | awk -F "\t" '{print $3}' | grep 04/Mar/ | wc -l
+    > cat ads_website.log | awk -F "\t" '{print $3}' | grep 04/Mar/2021 | wc -l
     423
     ```
     **423 accesses**
