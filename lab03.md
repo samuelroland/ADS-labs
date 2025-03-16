@@ -6,17 +6,19 @@
 
 1.  Run the following commands and tell where stdout and stderr are redirected to
 
-- a. `./out > file`: stdout is redirected inside the file named file, and stderr stays on the screen
-- b. `./out 2> file`: stderr is redirected inside the file named file, and stdout stays on the screen
-- c. `./out > file 2>&1`: both stdout and stderr redirected to file
-- d. `./out 2>&1 > file`: stdout is redirected inside the file and stderr is displayed on the screen
-- e. `./out &> file`: both stdout and stderr are redirected to the file
+- a. `./out > file`: stdout is redirected inside the file named `file`, and stderr stays on the screen
+- b. `./out 2> file`: stderr is redirected inside the file named `file`, and stdout stays on the screen
+- c. `./out > file 2>&1`: both stdout and stderr redirected to `file`
+- d. `./out 2>&1 > file`: stdout is redirected inside the `file` and stderr is displayed on the screen
+- e. `./out &> file`: both stdout and stderr are redirected to the `file`
 
 2. What do the following commands do?
 
-- a. `cat /usr/share/doc/cron/README | grep -i edit`: List all edit occurrences in the cron README. The case is not sensitive.
-- b. `./out 2>&1 | grep -i eeeee`: Redirect both stdout and stderr to grep, and try matching the string eeeee (`OEOEOEOEOE` input given to grep). The case is not sensitive.
-- c: `./out 2>&1 >/dev/null | grep -i eeeee`: Redirect stdout to null, passing stderr to grep, and try matching the string eeeee. The case is not sensitive.
+Note: this is not easy to describe file descriptors digits movements, we tried our best, based on the `Moving File Descriptors` section of `man bash`.
+
+- a. `cat /usr/share/doc/cron/README | grep -i edit`: List all edit occurrences in the cron README with case insensitive research (Both `EDIT` or `edit` do match).
+- b. `./out 2>&1 | grep -i eeeee`: Change the stderr file descriptor digit to the one behind stdout and redirect stdout to `grep`'s stdin. (Finally, this just redirect both stdout and stderr to `grep`). And `grep` tries matching the string `eeeee` (`OEOEOEOEOE` is the input given to grep). The case is not sensitive. There is no match here, nothing is displayed in the console.
+- c: `./out 2>&1 >/dev/null | grep -i eeeee`: Change the stderr file descriptor digit to the file descriptor of stdout, then redirect stdout to `/dev/null` to discard it, the pipe is then redirecting stdout to `grep`. (Finally, the original stderr is sent to `grep`). And `grep` tries matching the string `eeeee`. The case is not sensitive. The output `EEEEE` is fully matched by `grep` here.
 
 3. Write commands to perform the following tasks:
 - a. Produce a recursive listing, using ls, of files and directories in your home directory, including hidden files, in the file `/tmp/homefileslist`:
