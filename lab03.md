@@ -139,7 +139,7 @@ Adding this `$` at the end of the regex makes sure we are matching a number at t
 
 ```sh
 # 1st command, not using the semi-colon
-echo "date,nb_accesses" > accesses.csv | cat access.log \ 
+echo "date,nb_accesses" > accesses.csv | cat access.log \
     | cut -d ' ' -f4 | cut -c2-12 | sort | uniq -c | awk '{print $2","$1}' >> accesses.csv
 
 # 2nd command, using the semi-colon
@@ -167,8 +167,10 @@ date,nb_accesses
 ```
 
 ## Graph
-![Graph showing the accesses to the server by date](./accesses.png)
+Graph showing the server accesses count by date
+
+![A big pike around 4th June](./accesses.png)
 
 We added the missing data by hand to ensure it was represented properly.<br>
-As I am using libreoffice and due to my laptop configuration, it requiers date to be inserted in the american format if we wish for it to be automatically viewed as a `Date`. <br>
+As I am using libreoffice and due to my laptop configuration, it requires date to be inserted in the american format if we wish for it to be automatically viewed as a `Date`.  
 With libreoffice when you open the `csv` you can specify the format for a column and it understands and changes the date to the standard american date format used for the graph.
