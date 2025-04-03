@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 cd ~/public_html/
-imgs=$(ls ./lab04_raw_files/*.jpg)
+imgs=$(ls raw_files/*.{jpg},png)
 
 for img in $imgs
 do

@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 cd ~/public_html/
+
 # list all image file but ignore file with two underscores then numbers
-imgs=$(ls ./lab04_raw_files/*.{jpg,png} | grep -vE '_[0-9]+_.*\.(jpg|png)$')
+imgs=$(ls raw_files/*.{jpg,png} | grep -vE '_[0-9]+_.*\.(jpg|png)$')
 for img in $imgs
 do
 

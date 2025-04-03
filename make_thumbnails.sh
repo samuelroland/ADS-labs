@@ -1,9 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 cd ~/public_html/
-cd lab04_raw_files
 
-imgs=$(ls ./lab04_raw_files/*.{jpg,png,pdf} | grep -vE '_thumb\.(jpg|png,pdf)$')
+imgs=$(ls raw_files/*.{jpg,png,pdf} | grep -vE '_thumb\.(jpg|png,pdf)$')
 for img in $imgs
 do
 
@@ -11,10 +10,10 @@ do
     filename="${img%.*}"
     extension="${img#${filename}}"
 
-    new_name="${filename%.*}_thumb.${extension}"    
+    new_name="${filename%.*}_thumb${extension}"    
     echo "$new_name"
 
-    if [ "${extension}" == ".pdf" ]; then echo "Equal"
+    if [[ "${extension}" == ".pdf" ]]
     then
         convert -geometry 300 ${img}.[0] ${new_name}
     else
