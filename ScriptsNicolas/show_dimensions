@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# task1_script - Display the dimensions of all pictures in current directory
+#
+# usage: ./show_dimensions
+#
+# Nicolas Carbonara 2025-03-24
+
+cd lab04_raw_files
+for image in *.jpg *.png
+do
+	result=$(identify -format "$image"': width: %w, height: %h' $image)
+	echo "$result"
+done

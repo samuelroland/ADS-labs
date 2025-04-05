@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# task1_script - Display the dimensions of all pictures in current directory
+#
+# usage: ./rename_pictures
+#
+# Nicolas Carbonara 2025-03-24
+
+cd lab04_raw_files
+for image in *.jpg *.png
+do
+	width=$(identify -format '%w' $image)
+	height=$(identify -format '%h' $image)
+
+	ext="${image#*.}"
+	name="${image%.*}"
+	name="${name%%_[0-9]*}"
+
+	if [ "${image}" != "${name}_${width}_${height}.${ext}" ] 
+	then
+		cp ${image} "${name}_${width}_${height}.${ext}"
+	else
+		echo "${image} already present, canceling copy."
+	fi
+done
