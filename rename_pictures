@@ -14,11 +14,13 @@ do
 
 	ext="${image#*.}"
 	name="${image%.*}"
+	# remove dimension from the name of the picture
 	name="${name%%_[0-9]*}"
 
-	if [[ "${image}" != "${name}_${dim}.${ext}" ]]
+	new_name="${name}_${dim}.${ext}"
+	if ! ls | grep -i "${new_name}"
 	then
-		cp ${image} "${name}_${dim}.${ext}"
+		cp ${image} "${new_name}"
 	else
 		echo "${image} already present, canceling copy."
 	fi

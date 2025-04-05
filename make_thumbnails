@@ -18,6 +18,7 @@ do
 
 	name="${image%.*}"
 	name="${name%%_thumb}"
+	# remove _thumb from the name of the picture
 	new_name="${name}_thumb.${ext}"
 
 	# We create the new name of the picture and we search it in the
