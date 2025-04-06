@@ -8,14 +8,9 @@ As the instructions were not super clear on the source and destinations folder f
 **Deploy the solution**
 
 ```sh
+cd lab04
 scp -r . labc0@ads.iict.ch:/home/labc0/
 ```
-
-```sh
-~ > bash deploy
-```
-
-
 **Generate all files on the server**
 
 ```sh
