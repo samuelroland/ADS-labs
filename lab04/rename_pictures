@@ -12,7 +12,6 @@
 # Antoine Leresche
 # Samuel Roland
 
-## Source and destinations directories
 SRC=lab04_raw_files
 DEST=renamed_files
 
