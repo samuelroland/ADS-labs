@@ -2,7 +2,11 @@
 #
 # Task 2 - Rename pictures from $SRC to $DEST with their dimensions with w_h format as suffix
 #
-# usage: Must be ran inside public_html with ../rename_pictures or "bash ../rename_pictures"
+# usage: Must be ran inside public_html with "../rename_pictures" or "bash ../rename_pictures"
+#
+# Note: this script can be ran multiple times without any issue, to prevent the dimensions from accumulating in the name
+# we just used another destination folder $DEST, which is cleaned before the execution. This other folder make it easier
+# to differentiate sources files in $SRC and renamed files under $DEST
 #
 # Nicolas Carbonara
 # Antoine Leresche
@@ -22,7 +26,7 @@ fi
 rm -rf $DEST
 mkdir -p $DEST
 
-for image in $SRC/*.{jpg,png}; do
+for image in "$SRC"/*.{jpg,png}; do
     # Extract dimensions info as w_h format
     dim=$(identify -format '%w_%h' $image)
 

@@ -1,14 +1,16 @@
 #!/bin/bash
 #
-# task1_script - Display the dimensions of all pictures in current directory
+# Task 2 - Display the dimensions of all pictures in $SRC directory
 #
-# usage: ./show_dimensions
+# usage: Must be ran inside public_html with "../show_dimensions" or "bash ../show_dimensions"
 #
 # Nicolas Carbonara
 # Antoine Leresche
 # Samuel Roland
 
-for image in lab04_raw_files/*.{jpg,png}; do
-    result=$(identify -format "$image"': width: %w, height: %h' $image)
-    echo "$result"
+SRC=lab04_raw_files
+
+for image in "$SRC"/*.{jpg,png}; do
+    result=$(identify -format 'width: %w, height: %h' $image)
+    echo "$image: $result"
 done
