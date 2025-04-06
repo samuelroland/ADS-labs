@@ -8,8 +8,7 @@
 # Antoine Leresche
 # Samuel Roland
 
-for image in lab04_raw_files/*.{jpg,png}
-do
-	result=$(identify -format "$image"': width: %w, height: %h' $image)
-	echo "$result"
+for image in lab04_raw_files/*.{jpg,png}; do
+    result=$(identify -format "$image"': width: %w, height: %h' $image)
+    echo "$result"
 done
