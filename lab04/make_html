@@ -15,6 +15,12 @@ SRC=lab04_raw_files # only raw files, easier to avoid filtering thumbnails out
 ALL_FILES_SRC=files # like in the example HTML
 DEST_FILE=page.html
 
+# Check if $SRC is accessible
+if ! test -d $SRC; then
+    echo "Sorry but the folder $SRC doesn't exist in $PWD, are you inside public_html folder ?"
+    exit
+fi
+
 # Create the HTML for a vignette with link + img tags
 # $1 must be the image path, $2 must be the thumb path
 function vignette() {
