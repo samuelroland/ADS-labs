@@ -16,6 +16,7 @@ if ! test -d $SRC; then
 fi
 
 cd $SRC
+bash ../show_dimensions
 bash ../make_thumbnails
 bash ../rename_pictures
 rm -rf $ALL_FILES_SRC && mkdir -p $ALL_FILES_SRC
