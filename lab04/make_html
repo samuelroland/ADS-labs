@@ -44,6 +44,7 @@ function get_thumb_name() {
 # Generate vignettes in HTML for given files
 function generate_vignettes() {
     for file in $@; do
+        file=$ALL_FILES_SRC/${file#$SRC/} # remove the path $SRC to only keep the filename
         vignette "$file" "$(get_thumb_name $file)"
     done
 }

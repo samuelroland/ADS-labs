@@ -4,11 +4,8 @@
 #
 # usage: Must be ran in the same folder where public_html exists on the server with "./deploy" or "bash ./deploy"
 
-function run() {
-
-}
-
-SRC=lab04_raw_files
+SRC_START=lab04_raw_files
+SRC_THUMBS=thumbs_files
 SRC=public_html
 ALL_FILES_SRC=files # like in the example HTML
 
@@ -18,9 +15,15 @@ if ! test -d $SRC; then
     exit
 fi
 
-pushd $SRC
+cd $SRC
 bash ../make_thumbnails
 bash ../rename_pictures
 rm -rf $ALL_FILES_SRC && mkdir -p $ALL_FILES_SRC
-cp $SRC/* $ALL_FILES_SRC
+echo
+echo "Preparing images under $ALL_FILES_SRC"
+cp $SRC_START/* $ALL_FILES_SRC
+cp $SRC_THUMBS/* $ALL_FILES_SRC
+echo ""
 bash ../make_html
+
+echo "All is built and ready, visit /page.html"
