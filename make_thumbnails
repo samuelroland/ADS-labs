@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# task1_script - Display the dimensions of all pictures in current directory
+#
+# usage: ./make_thumbnails
+#
+# Nicolas Carbonara
+# Antoine Leresche
+# Samuel Roland
+
+for image in lab04_raw_files/*.{jpg,png,pdf}
+do
+	ext="${image#*.}"
+	if [[ "${ext}" = "pdf" ]]
+	then
+		ext="jpg"
+	fi
+
+	name="${image%.*}"
+	name="${name%%_thumb}"
+	# remove _thumb from the name of the picture
+	new_name="${name}_thumb.${ext}"
+
+	# We create the new name of the picture and we search it in the
+	# current directory, if present, we do nothing
+	if ! ls | grep -i "${new_name}"
+	then
+		convert -geometry 300 ${image}[0] ${new_name}
+	else
+		echo "${image}: thumbnail already present, canceling thumbnail cration."
+	fi
+done
