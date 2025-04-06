@@ -1,4 +1,4 @@
-# ADS Lab 03 - Pipelines
+# ADS Lab 04 - Scripting
 **Authors**: Samuel Roland, Antoine Leresche, Nicolas Carbonara  
 **Date**: 2025-04-06
 
