@@ -10,6 +10,12 @@
 
 SRC=lab04_raw_files
 
+# Check if $SRC is accessible
+if ! test -d $SRC; then
+    echo "Sorry but the folder $SRC doesn't exist in $PWD, are you inside public_html folder ?"
+    exit
+fi
+
 for image in "$SRC"/*.{jpg,png}; do
     result=$(identify -format 'width: %w, height: %h' $image)
     echo "$image: $result"

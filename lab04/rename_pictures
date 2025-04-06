@@ -17,7 +17,7 @@ SRC=lab04_raw_files
 DEST=renamed_files
 
 # Check if $SRC is accessible
-if ! test -d lab04_raw_files; then
+if ! test -d $SRC; then
     echo "Sorry but the folder $SRC doesn't exist in $PWD, are you inside public_html folder ?"
     exit
 fi
