@@ -33,3 +33,8 @@ ssh labc0@ads.iict.ch -L 5555:localhost:3306
 ![connection](lab04/MySQLWorkbenchConnectionConf.png)
 
 ![select](lab04/SelectTable.png)
+
+We changed the deployed `index.php` with the database credentials at the top and the menu is correctly generated.
+![php-result-menu.png](lab04/php-result-menu.png)
+
+Note: The images are not linked correctly, but this was probably not asked so we focused on the `page.html`.
