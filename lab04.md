@@ -11,13 +11,22 @@ Here is a little script to help you setup our website locally if needed. Everyth
 cd lab04
 wget https://ads.iict.ch/lab04_template.zip
 unzip lab04_template.zip
-chmod u+w public_html
-mv lab04_template/* public_html/
-rm -f public_html/index.html
+chmod u+w -R public_html
+cp -r lab04_template/* public_html/
+chmod u+w -R lab04_template
+rm -rf lab04_template
 
 wget https://ads.iict.ch/lab04_raw_files.zip
 unzip lab04_raw_files.zip
 mv lab04_raw_files public_html/
+```
+
+```sh
+bash deploy # running all scripts
+cd public_html
+php -S localhost:8000 # quick testing
+
+xdg-open http://localhost:8000/page.html # open in browser
 ```
 
 **Run our scripts locally**
@@ -35,8 +44,9 @@ bash ../make_html
 
 ```sh
 cd lab04
-scp -r . labc0@ads.iict.ch:/home/labc0/
+scp -r . labc0@ads.iict.ch:/home/labc0/ # pushing all files from current folder to remote user folder
 ```
+
 **Generate all files on the server**
 
 ```sh
