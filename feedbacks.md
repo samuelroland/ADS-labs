@@ -29,3 +29,33 @@ Task 3
 
 -> 
 Points: 7.7/9
+
+
+## Feedback - Labo 4 on Scripting
+
+Grade : 5.4
+
+### Task 2: Create thumbnails
+
+Ex show_dimension :
+- Perfect !
+
+Ex rename_pictures :
+
+- Your code will still add the dimensions if it's already in the name of the file that you copy.
+- You create a folder even if there's no pictures renamed.
+
+Ex make_thumbnails :
+
+- If a file already has the word thumb in its name, your script still copies and creates a thumb from it.
+
+### Task 3: Generate HTML file
+
+Ex make_html :
+- It was asked to use a template only for the beginning and end of the file. (here there's a middle part)
+
+Task 4: Use SSH Tunneling
+
+- Perfect !
+
+
