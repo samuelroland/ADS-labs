@@ -33,7 +33,7 @@ Points: 7.7/9
 
 ## Feedback - Labo 4 on Scripting
 
-Grade : 5.4
+Grade : 5.7
 
 ### Task 2: Create thumbnails
 
@@ -47,7 +47,7 @@ Ex rename_pictures :
 
 Ex make_thumbnails :
 
-- If a file already has the word thumb in its name, your script still copies and creates a thumb from it.
+- If a file already has the word thumb in its name, your script still copies and creates a thumb from it. (no points lost because you had the same logic than the previous exercise)
 
 ### Task 3: Generate HTML file
 
