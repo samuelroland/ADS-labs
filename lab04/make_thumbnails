@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# Task 2 - Create thumbnails for images present in $SRC, results are stored in $DEST and names are suffixed with _thumb
+#
+# usage: Must be ran inside public_html with "../make_thumbnails" or "bash ../make_thumbnails"
+#
+# Note: like rename_pictures, this script can be ran multiple times without any issue, to prevent the suffix from accumulating,
+# we just used another destination folder $DEST, which is cleaned before the execution.
+#
+# Nicolas Carbonara
+# Antoine Leresche
+# Samuel Roland
+
+SRC=lab04_raw_files
+DEST=thumbs_files
+THUMBNAIL_SIZE=300
+
+# Check if $SRC is accessible
+if ! test -d $SRC; then
+    echo "Sorry but the folder $SRC doesn't exist in $PWD, are you inside public_html folder ?"
+    exit
+fi
+
+# Start by deleting and creating the destination folder to avoid mixing old and new content
+rm -rf $DEST
+mkdir -p $DEST
+
+for file in "$SRC"/*.{jpg,png,pdf}; do
+    ext="${file##*.}" # extract what's after the last point
+
+    # The final extension for a PDF thumbnail is not .pdf but .jpg
+    if [[ "${ext}" = "pdf" ]]; then
+        ext="jpg"
+    fi
+
+    without_ext="${file%.*}"  # extract what's before the last point
+    name="${without_ext##*/}" # extract the name without the $SRC prefix, after the last /
+    new_name="${name}_thumb.${ext}"
+
+    dest_path="$DEST/${new_name}"
+    echo Creating thumbnail of $file to $dest_path
+    convert -geometry $THUMBNAIL_SIZE ${file}[0] "$dest_path"
+done

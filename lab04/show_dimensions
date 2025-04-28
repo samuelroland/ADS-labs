@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Task 2 - Display the dimensions of all pictures in $SRC directory
+#
+# usage: Must be ran inside public_html with "../show_dimensions" or "bash ../show_dimensions"
+#
+# Nicolas Carbonara
+# Antoine Leresche
+# Samuel Roland
+
+SRC=lab04_raw_files
+
+# Check if $SRC is accessible
+if ! test -d $SRC; then
+    echo "Sorry but the folder $SRC doesn't exist in $PWD, are you inside public_html folder ?"
+    exit
+fi
+
+for image in "$SRC"/*.{jpg,png}; do
+    result=$(identify -format 'width: %w, height: %h' $image)
+    echo "$image: $result"
+done

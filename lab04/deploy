@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Task 3 - Deploy the content on the server, execute scripts written for this lab and small adjustments in the middle
+#
+# usage: Must be ran in the same folder where public_html exists on the server with "./deploy" or "bash ./deploy"
+
+SRC_START=lab04_raw_files
+SRC_THUMBS=thumbs_files
+SRC=public_html
+ALL_FILES_SRC=files # like in the example HTML
+
+# Check if $SRC is accessible
+if ! test -d $SRC; then
+    echo "Sorry but the folder $SRC doesn't exist in $PWD, are you on the same folder that $SRC folder ?"
+    exit
+fi
+
+cd $SRC
+bash ../show_dimensions
+bash ../make_thumbnails
+bash ../rename_pictures
+rm -rf $ALL_FILES_SRC && mkdir -p $ALL_FILES_SRC
+echo
+echo "Preparing images under $ALL_FILES_SRC"
+cp $SRC_START/* $ALL_FILES_SRC
+cp $SRC_THUMBS/* $ALL_FILES_SRC
+echo ""
+bash ../make_html
+
+echo "All is built and ready, visit /page.html"

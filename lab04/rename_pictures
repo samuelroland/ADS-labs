@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Task 2 - Rename pictures from $SRC to $DEST with their dimensions with w_h format as suffix
+#
+# usage: Must be ran inside public_html with "../rename_pictures" or "bash ../rename_pictures"
+#
+# Note: this script can be ran multiple times without any issue, to prevent the dimensions from accumulating in the name
+# we just used another destination folder $DEST, which is cleaned before the execution. This other folder make it easier
+# to differentiate sources files in $SRC and renamed files under $DEST
+#
+# Nicolas Carbonara
+# Antoine Leresche
+# Samuel Roland
+
+SRC=lab04_raw_files
+DEST=renamed_files
+
+# Check if $SRC is accessible
+if ! test -d $SRC; then
+    echo "Sorry but the folder $SRC doesn't exist in $PWD, are you inside public_html folder ?"
+    exit
+fi
+
+# Start by deleting and creating the destination folder to avoid mixing old and new content
+rm -rf $DEST
+mkdir -p $DEST
+
+for image in "$SRC"/*.{jpg,png}; do
+    # Extract dimensions info as w_h format
+    dim=$(identify -format '%w_%h' $image)
+
+    # Extract basename and extension
+    ext="${image##*.}"        # extract what's after the last point
+    without_ext="${image%.*}" # extract what's before the last point
+    name="${without_ext##*/}" # extract the name without the $SRC prefix, after the last /
+
+    new_name="${name}_${dim}.${ext}"
+    cp "${image}" "$DEST/${new_name}"
+    echo Copied "${image}" to "$DEST/${new_name}"
+done
