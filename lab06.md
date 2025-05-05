@@ -14,7 +14,9 @@ Through the previous command we can see that my primary group name is `syseria` 
 > How many other groups are you a member of ?
 
 Through the previous command we can see that I am part of 6 other groups (adm, cdrom, sudo, dip, plugdev and lxd)
+
 ## Interpreting access control metadata on files and directories
+
 > Determine who is the owner, which group own or can access the following files
 
 ```sh
@@ -23,22 +25,23 @@ $ ls -l /etc/passwd
 -rw-r--r-- 1 root root 1786 Feb 24 16:07 /etc/passwd
 ```
 
-- /etc/passwd
-	- Owner: root - can read and write
-	- Group Owner: root - can read
+- `/etc/passwd`
+	- Owner: `root` - can read and write
+	- Group Owner: `root` - can read
 	- Others - can read
-- /bin/ls
-	- Owner: root - can read, write and execute
-	- Group Owner: root - can read and execute
+- `/bin/ls`
+	- Owner: `root` - can read, write and execute
+	- Group Owner: `root` - can read and execute
 	- Others - can read and execute
-- ~/.bashrc
-	- Owner: syseria - can read and write
-	- Group Owner: syseria - can read
+- `~/.bashrc`
+	- Owner: `syseria` - can read and write
+	- Group Owner: `syseria` - can read
 	- Others - can read
-- ~/.bash_history
-	- Owner: syseria - can read
-	- Group Owner: syseria - none
+- `~/.bash_history`
+	- Owner: `syseria` - can read <!-- todo: also write ? -->
+	- Group Owner: `syseria` - none
 	- Others - none
+
 > Examine the permissions of your home directory
 
 ```sh
@@ -49,10 +52,14 @@ First letter `d` indicates it is a *D*irectory.<br>
 - Owner: syseria - can list (read), write and traverse (execute)
 - Group Owner: syseria - can list (read) and traverse (execute)
 - Others: can traverse (execute)
+
 > What permission allows you to create files in the `/tmp` directory ?
 
-In the last 3 digits (for others) we can see that there is a `t` instead of x.<br>
-This `t` is the one allowing us to do so in complement to the `w` of the last 3 digits.
+```sh
+$ ls -lad /tmp/
+drwxrwxrwt. 23 root root 640 May  5 15:20 /tmp/
+```
+It is owned by `root`, so the current user `syseria` is not part of the `root` group the permissions that apply are on the last 3 digits `rwt`. The `w` gives us the possibility to create files. This `t` in place of the `x` position, is the sticky bit that makes only able to delete files we own and not files created by other users.
 
 ## Modifying access rights
 ### 600 file
