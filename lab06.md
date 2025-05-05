@@ -62,7 +62,7 @@ drwxrwxrwt. 23 root root 640 May  5 15:20 /tmp/
 It is owned by `root`, so the current user `syseria` is not part of the `root` group so the permissions that apply are on the last 3 digits `rwt`. The `w` gives us the possibility to create files. This `t` in place of the `x` position, is the sticky bit that makes only able to delete files we own and not files created by other users.
 
 ## Modifying access rights
-### 600 file
+### Part 1
 ```sh
 # Start
 $ touch file
@@ -100,3 +100,7 @@ $ chmod og-r file
 $ ls -l
 total 0
 -rwx------ 1 syseria syseria 0 Apr 28 14:58 file
+```
+
+### Part 2
+Todo
