@@ -48,7 +48,7 @@ $ ls -l /etc/passwd
 $ ls -ld /home/syseria
 drwxr-x--x 11 syseria syseria 4096 Apr  5 09:36 /home/syseria
 ```
-First letter `d` indicates it is a *D*irectory.<br>
+First letter `d` indicates it is a *D*irectory.  
 - Owner: syseria - can list (read), write and traverse (execute)
 - Group Owner: syseria - can list (read) and traverse (execute)
 - Others: can traverse (execute)
@@ -59,7 +59,7 @@ First letter `d` indicates it is a *D*irectory.<br>
 $ ls -lad /tmp/
 drwxrwxrwt. 23 root root 640 May  5 15:20 /tmp/
 ```
-It is owned by `root`, so the current user `syseria` is not part of the `root` group the permissions that apply are on the last 3 digits `rwt`. The `w` gives us the possibility to create files. This `t` in place of the `x` position, is the sticky bit that makes only able to delete files we own and not files created by other users.
+It is owned by `root`, so the current user `syseria` is not part of the `root` group so the permissions that apply are on the last 3 digits `rwt`. The `w` gives us the possibility to create files. This `t` in place of the `x` position, is the sticky bit that makes only able to delete files we own and not files created by other users.
 
 ## Modifying access rights
 ### 600 file
@@ -78,10 +78,10 @@ total 0
 -rw-r----- 1 syseria syseria 0 Apr 28 14:58 file
 
 # rwx r-x ---
-$ chmod g+x file
+$ chmod ug+x file
 $ ls -l
 total 0
--rw-r-x--- 1 syseria syseria 0 Apr 28 14:58 file
+-rwxr-x--- 1 syseria syseria 0 Apr 28 14:58 file
 
 # r-- r-- r--
 $ chmod a=r file
@@ -96,8 +96,7 @@ total 0
 -rwxr--r-- 1 syseria syseria 0 Apr 28 14:58 file
 
 # rwx --- ---
-$ chmod a-r file
-$ chmod u=rwx file
+$ chmod og-r file
 $ ls -l
 total 0
 -rwx------ 1 syseria syseria 0 Apr 28 14:58 file
