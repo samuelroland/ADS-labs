@@ -115,7 +115,8 @@ chmod 446 test
 > echo salut > test
 bash: test: Permission denied
 ```
-It's surprising that the OS doesn't allow us write inside the file.
+As confirmed from [this readhat blog post](https://www.redhat.com/en/blog/linux-file-permissions-explained#:~:text=When%20the%20system,and%20no%20further) permissions are read from left to right and stopped once one is checked as `true`.<br>
+In our case, it first checks if the user is the owner, returns `true` and applies/uses the permissions for owner which are `read`.
 
 ### Giving other users access to your files
 1. My colleague can totally read my files. Because they are readable for others (the last `r` in permission pattern). This is due to the `umask` set to `0002` which only removes the `w` right to others and leave all rights on by default.
