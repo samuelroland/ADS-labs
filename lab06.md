@@ -1,5 +1,9 @@
-# Task 1
-## Interpreting account and group information
+# ADS Lab 06 - Access control
+**Authors**: Samuel Roland, Antoine Leresche, Nicolas Carbonara  
+**Date**: 2025-05-11
+
+## Task 1
+### Interpreting account and group information
 > What is your UID and what is your account name ?
 
 ```sh
@@ -15,7 +19,7 @@ Through the previous command we can see that my primary group name is `syseria` 
 
 Through the previous command we can see that I am part of 6 other groups (adm, cdrom, sudo, dip, plugdev and lxd)
 
-## Interpreting access control metadata on files and directories
+### Interpreting access control metadata on files and directories
 
 > Determine who is the owner, which group own or can access the following files
 
@@ -61,8 +65,8 @@ drwxrwxrwt. 23 root root 640 May  5 15:20 /tmp/
 ```
 It is owned by `root`, so the current user `syseria` is not part of the `root` group so the permissions that apply are on the last 3 digits `rwt`. The `w` gives us the possibility to create files. This `t` in place of the `x` position, is the sticky bit that makes only able to delete files we own and not files created by other users.
 
-## Modifying access rights
-### Part 1
+### Modifying access rights
+
 ```sh
 # Start
 $ touch file
@@ -102,12 +106,94 @@ total 0
 -rwx------ 1 syseria syseria 0 Apr 28 14:58 file
 ```
 
-### Part 2
-Todo
+**Conflicting permissions**
+```sh
+touch test
+chmod 446 test
+> ls -l test
+-r--r--rw-. 1 sam sam 0 May 11 17:15 test
+> echo salut > test
+bash: test: Permission denied
+```
+It's surprising that the OS doesn't allow us write inside the file.
 
-### Part 5
+### Giving other users access to your files
+todo
+
+### Find
+> What does `find` do with hidden files or directories?
+
+It includes hidden files and directories in the default output.
+
+> 2. Using find display all the files in your home directory
+> that end in .c , .cpp or in .sh
+```sh
+find . -name '*.c' -or -name '*.cpp' -or -name '*.sh'
+# or
+find -regex '.*\.\(c\|cpp\|sh\)'
+```
+Note: the alternative to `find` is the `fd` and is much easier to write `fd -e c -e cpp -e sh` :)
+
+> that are executable
 
 ```sh
+find -executable
+```
+
+> that have not been modified since more than two years
+```sh
+find -mtime -$(echo "2*365" | bc)
+```
+
+> that have not been accessed since more than two years
+
+```sh
+find -atime -$(echo "2*365" | bc)
+```
+
+> that have not been accessed since more than three years and that are bigger than 3 MB (good candidates for cleanup)
+
+```sh
+find -atime -$(echo "2*365" | bc) -size +3M
+```
+
+> Display all the directories in your home directory
+
+```sh
+find $HOME -type d -name ".git" 2> /dev/null
+```
+
+> Suppose your current directory has no subdirectories. You want to display all files that contain the word root . Which of the two commands is correct and why:
+```sh
+find . -type f -exec grep -l 'root' {} \;
+find * -type f -exec grep -l 'root' {} \;
+```
+
+The 2 commands works almost the same, the only difference is that the shell globbing for `*` only take non hidden files ! Here is a demonstration where all files contains `root`, the hidden file `.salut` is only shown on the first command.
+
+```sh
+> ls -a
+.salut  broot  brootd  main.c  rootaaa  rootb
+
+> find . -type f -exec grep -l 'root' {} \;
+./main.c
+./rootaaa
+./rootb
+./brootd
+./.salut
+> find * -type f -exec grep -l 'root' {} \;
+brootd
+main.c
+rootaaa
+rootb
+```
+
+## Task 2,3,4,5
+See script `fix_permissions`.
+
+`test_dir` listing
+```sh
+> ls -lR test_dir > test_dir.txt
 test_dir:
 total 12
 drwxrwxr-x 2 a2va proj_a 4096 May 11 10:15 dir proj a
