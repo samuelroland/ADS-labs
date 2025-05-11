@@ -38,7 +38,7 @@ $ ls -l /etc/passwd
 	- Group Owner: `syseria` - can read
 	- Others - can read
 - `~/.bash_history`
-	- Owner: `syseria` - can read <!-- todo: also write ? -->
+	- Owner: `syseria` - can read and write
 	- Group Owner: `syseria` - none
 	- Others - none
 
@@ -104,3 +104,31 @@ total 0
 
 ### Part 2
 Todo
+
+### Part 5
+
+```sh
+test_dir:
+total 12
+drwxrwxr-x 2 a2va proj_a 4096 May 11 10:15 dir proj a
+drwxr-xrwx 2 a2va a2va   4096 May 11 10:15 dira
+drwxr-xr-x 2 a2va a2va   4096 May 11 09:58 dirb
+-rw-r--rw- 1 a2va a2va      0 May 11 09:57 filea
+-rw-r--r-- 1 a2va a2va      0 May 11 10:15 normal1
+-rw-rw-r-- 1 a2va proj_a    0 May 11 10:00 proj a
+-rw-rw-r-- 1 a2va proj_b    0 May 11 10:00 projb
+
+test_dir/dir proj a:
+total 0
+-rw-r--r-- 1 a2va a2va   0 May 11 10:15 normal 3
+-rw-rw-r-- 1 a2va proj_a 0 May 11 10:01 proj aa
+
+test_dir/dira:
+total 0
+-rw-r--r-- 1 a2va a2va 0 May 11 10:15 normal2
+
+test_dir/dirb:
+total 0
+-rw-r--rw- 1 a2va a2va 0 May 11 09:57 fileb
+```
+
