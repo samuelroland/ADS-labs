@@ -118,7 +118,54 @@ bash: test: Permission denied
 It's surprising that the OS doesn't allow us write inside the file.
 
 ### Giving other users access to your files
-todo
+1. My colleague can totally read my files. Because they are readable for others (the last `r` in permission pattern). This is due to the `umask` set to `0002` which only removes the `w` right to others and leave all rights on by default.
+```sh
+labc1@ads:~$ echo salut > msg
+labc1@ads:~$ ls -la msg
+-rw-rw-r-- 1 labc1 labc1 6 May 11 18:01 msg
+
+labc0@ads:~$ cat /home/labc1/msg
+salut
+```
+
+1. Just adding or removing this `r` permission with `chmod o+r` or `chmod o-r`.
+```sh
+labc1@ads:~$ chmod o-r msg 
+
+labc0@ads:~$ cat /home/labc1/msg 
+cat: /home/labc1/msg: Permission denied
+```
+
+```sh
+labc1@ads:~$ mkdir shared
+labc1@ads:~$ ls -la shared
+total 8
+drwxrwxr-x 2 labc1 labc1 4096 May 11 18:21 .
+drwxr-xr-x 5 labc1 labc1 4096 May 11 18:21 ..
+labc1@ads:~$ ls -lad shared
+drwxrwxr-x 2 labc1 labc1 4096 May 11 18:21 shared
+labc1@ads:~$ groups
+labc1 proj_a proj_b
+labc1@ads:~$ chgrp proj_a shared/
+labc1@ads:~$ ls -lad shared
+drwxrwxr-x 2 labc1 proj_a 4096 May 11 18:21 shared
+labc1@ads:~$ chmod 770 shared
+labc1@ads:~$ ls -lad shared
+drwxrwx--- 2 labc1 proj_a 4096 May 11 18:21 shared
+
+labc0@ads:~$ groups
+labc0 proj_a proj_b
+labc0@ads:~$ echo salut > /home/labc1/shared/aaa
+labc0@ads:~$ cat /home/labc1/shared/aaa
+salut
+
+labc1@ads:~$ ls shared
+aaa
+labc1@ads:~$ cat shared/aaa
+salut
+```
+
+The important commands above are `chgrp proj_a shared/` and `chmod 770 shared`. We can see that the other `labc0` has read and write access in this folder.
 
 ### Find
 > What does `find` do with hidden files or directories?
