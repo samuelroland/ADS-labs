@@ -54,7 +54,7 @@ sudo useradd -s /bin/bash -m -g rebels solo
 Perform the following steps and give in the lab report the commands you used.  
 Use the tool `usermod`.
 
-> [!info]
+> [!NOTE]
 > Create the account leia without assigning it a principal group.
 > After it was created, which principal group did it get assigned?
 
@@ -67,7 +67,7 @@ $ groups leia
 leia : leia
 ```
 
-> [!info]
+> [!NOTE]
 > Make leia member of the group rebels (as secondary group).
 
 ```sh
@@ -80,7 +80,7 @@ $ groups leia
 leia : leia rebels
 ```
 
-> [!info]
+> [!NOTE]
 > Make leia leave the group rebels and join the group jedi instead.
 
 ```sh
@@ -100,7 +100,7 @@ $ groups leia
 leia : leia jedi
 ```
 
-> [!info]
+> [!NOTE]
 > Make leia leave any secondary group.
 
 ```sh
@@ -114,14 +114,14 @@ We prefer using the `usemod` here as we ONLY want 1 group to remain, which is th
 Perform the following steps and give in the lab report the commands you used.  
 Use the tool `userdel`.
 
-> [!info]
+> [!NOTE]
 > Remove the account `leia`, but do not delete the home directory yet.
 
 ```sh
 $ sudo userdel leia
 ```
 
-> [!info]
+> [!NOTE]
 > Inspect the home directory (look at the file metadata).
 > What has changed?
 
@@ -145,7 +145,7 @@ drwxr-xr-x 4 root root 4096 May 19 14:07 ..
 On peut voir que le UID n'est plus remplacé par le nom d'utilisateur `leia`.  
 Les droits quant à eux non pas changé.
 
-> [!info]
+> [!NOTE]
 > Suppose the user leia has created other files on the system, but you do not know where they are.
 > How would you systematically scan the whole system to find them?
 
@@ -164,7 +164,7 @@ find: ‘/proc/2305/fdinfo/5’: No such file or directory
 Note that the sudo is important otherwise a lot of "Permission denied" error mesage will be printed burying the information we are looking for.  
 Possible work around to not use `sudo` would be to redirect the stderr to `/dev/null`.
 
-> [!info]
+> [!NOTE]
 > Remove the home directory manually.
 
 ```sh
