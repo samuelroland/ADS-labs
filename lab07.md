@@ -16,7 +16,10 @@ The UID is `1000` and the GID is `1000`
 
 > Which skeleton files have been copied?
 
-TODO: Dans wsl `etc/skel` est vide
+Sur la VM Ubuntu Server, le dossier `/etc/skel` contient les fichiers suivant:
+- `.bash_logout` -> Used to clear the console when you logout and is executed by bash(1).
+- `.bashrc` -> basic bash configuration for a user.
+- `.profile` -> configures the PATH for the user if `.bash_profile` or `.bash_login` are not present.
 
 # Task 1: Create user accounts
 
@@ -44,4 +47,130 @@ sudo useradd -s /bin/bash -m -g jedi -G rebels luke
 sudo passwd luke
 sudo useradd -s /bin/bash -m -g jedi vader
 sudo useradd -s /bin/bash -m -g rebels solo
+```
+
+
+# Task 2
+Perform the following steps and give in the lab report the commands you used.  
+Use the tool `usermod`.
+
+> [!info]
+> Create the account leia without assigning it a principal group.
+> After it was created, which principal group did it get assigned?
+
+```sh
+$ sudo useradd -m leia
+$ cat /etc/passwd
+...
+leia:x:1001:1001::/home/leia:/bin/sh
+$ groups leia
+leia : leia
+```
+
+> [!info]
+> Make leia member of the group rebels (as secondary group).
+
+```sh
+$ sudo usermod -a -G rebels leia
+
+# Alternative (prefered for consistency with removing)
+# $ sudo gpasswd -a leia rebels
+
+$ groups leia
+leia : leia rebels
+```
+
+> [!info]
+> Make leia leave the group rebels and join the group jedi instead.
+
+```sh
+$ sudo gpasswd -d leia rebels
+Removing user leia from group rebels
+
+# Alternative (discouraged, ok here as we only have 1 group to specify)
+# $ sudo usermod -G leia leia
+
+$ sudo gpasswd -a leia jedi
+Adding user leia to group jedi
+
+# Alternative
+# $ sudo usermod -a -G leia jedi
+
+$ groups leia
+leia : leia jedi
+```
+
+> [!info]
+> Make leia leave any secondary group.
+
+```sh
+$ sudo usermod -G leia leia
+$ groups leia
+leia : leia
+```
+We prefer using the `usemod` here as we ONLY want 1 group to remain, which is the user personal group.
+
+# Task 4
+Perform the following steps and give in the lab report the commands you used.  
+Use the tool `userdel`.
+
+> [!info]
+> Remove the account `leia`, but do not delete the home directory yet.
+
+```sh
+$ sudo userdel leia
+```
+
+> [!info]
+> Inspect the home directory (look at the file metadata).
+> What has changed?
+
+```sh
+$ sudo ls -la leia/
+total 20
+drwxr-x--- 2 leia leia 4096 May 19 14:07 .
+drwxr-xr-x 4 root root 4096 May 19 14:07 ..
+-rw-r--r-- 1 leia leia  220 Mar 31  2024 .bash_logout
+-rw-r--r-- 1 leia leia 3771 Mar 31  2024 .bashrc
+-rw-r--r-- 1 leia leia  807 Mar 31  2024 .profile
+
+$ sudo ls -la leia/
+total 20
+drwxr-x--- 2 1001 1001 4096 May 19 14:07 .
+drwxr-xr-x 4 root root 4096 May 19 14:07 ..
+-rw-r--r-- 1 1001 1001  220 Mar 31  2024 .bash_logout
+-rw-r--r-- 1 1001 1001 3771 Mar 31  2024 .bashrc
+-rw-r--r-- 1 1001 1001  807 Mar 31  2024 .profile
+```
+On peut voir que le UID n'est plus remplacé par le nom d'utilisateur `leia`.  
+Les droits quant à eux non pas changé.
+
+> [!info]
+> Suppose the user leia has created other files on the system, but you do not know where they are.
+> How would you systematically scan the whole system to find them?
+
+I would use the `find` command with the UID of said account/user.
+```sh
+$ sudo find / -uid 1001
+/home/leia
+/home/leia/.bashrc
+/home/leia/.profile
+/home/leia/.bash_logout
+find: ‘/proc/2305/task/2305/fd/6’: No such file or directory
+find: ‘/proc/2305/task/2305/fdinfo/6’: No such file or directory
+find: ‘/proc/2305/fd/5’: No such file or directory
+find: ‘/proc/2305/fdinfo/5’: No such file or directory
+```
+Note that the sudo is important otherwise a lot of "Permission denied" error mesage will be printed burying the information we are looking for.  
+Possible work around to not use `sudo` would be to redirect the stderr to `/dev/null`.
+
+> [!info]
+> Remove the home directory manually.
+
+```sh
+$ ls
+leia  syseria
+$ sudo rm -rf /home/leia/
+$ ls
+syseria
 ```
