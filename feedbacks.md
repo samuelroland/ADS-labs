@@ -59,3 +59,33 @@ Task 4: Use SSH Tunneling
 - Perfect !
 
 
+
+## Feedback - Lab 06 on control
+
+Grade : 5.8
+Task 1: Exercises
+
+1.1 Interpreting account and group information :
+
+    Perfect
+
+1.2 Interpreting access control metadata on files and directories
+
+    Perfect
+
+1.3 Modifying access rights
+
+    Perfect
+
+1.4 Giving other users access to your files
+
+    You're not taking in account for all files of the home directory and not only one of the files of the directory.
+
+1.5 Find
+
+    You're missing -type -f to specifically search for files.
+    Also, you're not saying that the globbing is causing multiple searches.
+
+Task 2-5 : Fix permissions script
+
+    Perfect !
