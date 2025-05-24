@@ -25,7 +25,7 @@ On the Ubuntu Server VM, the folder `/etc/skel` contains the following files:
 
 1.
 ```sh
-getent group jedi rebels
+getent group jedi rebels # checking if the 2 groups do exist
 sudo groupadd jedi
 sudo groudadd rebels
 ```
@@ -42,6 +42,7 @@ The default login shell is `/bin/sh`. To change it to `/bin/bash`, we can use th
 3. Create the following user accounts with default home directories and login
 shell
 ```sh
+id luke vader solo # checking if the accounts exist
 sudo useradd -s /bin/bash -m -g jedi -G rebels luke
 sudo passwd luke
 sudo useradd -s /bin/bash -m -g jedi vader
@@ -82,6 +83,8 @@ leia : leia rebels
 > [!NOTE]
 > Make leia leave the group rebels and join the group jedi instead.
 
+<!-- TODO usermod -r -->
+
 ```sh
 $ sudo gpasswd -d leia rebels
 Removing user leia from group rebels
@@ -111,13 +114,11 @@ We prefer using the `usemod` here as we ONLY want 1 group to remain, which is th
 
 # Task 3: Give a user sudo rights
 
-a. Which line in `/etc/sudoers` gives the members of the group sudo the right to
-execute any command?
+> a. Which line in `/etc/sudoers` gives the members of the group sudo the right to execute any command?
 
 The line `%sudo   ALL=(ALL:ALL) ALL` is denoted by a comment saying that it gives the members of the sudo group the right to execute any command.
 
-b. How would you have to modify this line so that users can use sudo without typing a
-password (this is in general not recommended, but can be handy sometimes).
+> b. How would you have to modify this line so that users can use sudo without typing a password (this is in general not recommended, but can be handy sometimes).
 
 It could be modified like this: `%sudo ALL=(ALL:ALL) NOPASSWD: ALL`
 
@@ -129,8 +130,7 @@ sudo usermod -rG sudo luke # remove luke from the sudo group
 ```
 
 # Task 4: Remove a user account
-Perform the following steps and give in the lab report the commands you used.  
-Use the tool `userdel`.
+> Perform the following steps and give in the lab report the commands you used.  Use the tool `userdel`.
 
 > [!NOTE]
 > Remove the account `leia`, but do not delete the home directory yet.
@@ -160,8 +160,7 @@ drwxr-xr-x 4 root root 4096 May 19 14:07 ..
 -rw-r--r-- 1 1001 1001 3771 Mar 31  2024 .bashrc
 -rw-r--r-- 1 1001 1001  807 Mar 31  2024 .profile
 ```
-On peut voir que le UID n'est plus remplacé par le nom d'utilisateur `leia`.  
-Les droits quant à eux non pas changé.
+The files retain the UID of their owner but as the owner doesn't exist anymore, it doesn't display its name `leia` so we see the UID directly. The permissions have not changed.
 
 > [!NOTE]
 > Suppose the user leia has created other files on the system, but you do not know where they are.
@@ -180,12 +179,14 @@ find: ‘/proc/2305/fd/5’: No such file or directory
 find: ‘/proc/2305/fdinfo/5’: No such file or directory
 ```
 Note that the sudo is important otherwise a lot of "Permission denied" error mesage will be printed burying the information we are looking for.  
-Possible work around to not use `sudo` would be to redirect the stderr to `/dev/null`.
+Possible work around to avoid using `sudo` would be to redirect the stderr to `/dev/null` with adding that `2>/dev/null` at the end of the command.
 
 > [!NOTE]
 > Remove the home directory manually.
 
 ```sh
+$ pwd
+/home
 $ ls
 leia  syseria
 $ sudo rm -rf /home/leia/
