@@ -16,13 +16,12 @@ The UID is `1000` and the GID is `1000`
 
 > Which skeleton files have been copied?
 
-Sur la VM Ubuntu Server, le dossier `/etc/skel` contient les fichiers suivant:
+On the Ubuntu Server VM, the folder `/etc/skel` contains the following files:
 - `.bash_logout` -> Used to clear the console when you logout and is executed by bash(1).
 - `.bashrc` -> basic bash configuration for a user.
 - `.profile` -> configures the PATH for the user if `.bash_profile` or `.bash_login` are not present.
 
 # Task 1: Create user accounts
-
 
 1.
 ```sh
@@ -50,7 +49,7 @@ sudo useradd -s /bin/bash -m -g rebels solo
 ```
 
 
-# Task 2
+# Task 2: Change group membership
 Perform the following steps and give in the lab report the commands you used.  
 Use the tool `usermod`.
 
@@ -129,7 +128,7 @@ sudo cat /etc/sudoers # now luke can use sudo
 sudo usermod -rG sudo luke # remove luke from the sudo group
 ```
 
-# Task 4
+# Task 4: Remove a user account
 Perform the following steps and give in the lab report the commands you used.  
 Use the tool `userdel`.
 
