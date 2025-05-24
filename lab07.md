@@ -110,6 +110,25 @@ leia : leia
 ```
 We prefer using the `usemod` here as we ONLY want 1 group to remain, which is the user personal group.
 
+# Task 3: Give a user sudo rights
+
+a. Which line in `/etc/sudoers` gives the members of the group sudo the right to
+execute any command?
+
+The line `%sudo   ALL=(ALL:ALL) ALL` is denoted by a comment saying that it gives the members of the sudo group the right to execute any command.
+
+b. How would you have to modify this line so that users can use sudo without typing a
+password (this is in general not recommended, but can be handy sometimes).
+
+It could be modified like this: `%sudo ALL=(ALL:ALL) NOPASSWD: ALL`
+
+```sh
+sudo usermod -aG sudo luke # make luke part of the sudo group
+su luke
+sudo cat /etc/sudoers # now luke can use sudo
+sudo usermod -rG sudo luke # remove luke from the sudo group
+```
+
 # Task 4
 Perform the following steps and give in the lab report the commands you used.  
 Use the tool `userdel`.
