@@ -126,10 +126,12 @@ leia : leia
 
 # Task 3: Give a user sudo rights
 
+> [!NOTE]
 > a. Which line in `/etc/sudoers` gives the members of the group sudo the right to execute any command?
 
 The line `%sudo   ALL=(ALL:ALL) ALL` is denoted by a comment saying that it gives the members of the sudo group the right to execute any command.
 
+> [!NOTE]
 > b. How would you have to modify this line so that users can use sudo without typing a password (this is in general not recommended, but can be handy sometimes).
 
 It could be modified like this: `%sudo ALL=(ALL:ALL) NOPASSWD: ALL`
