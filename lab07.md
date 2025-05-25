@@ -29,34 +29,33 @@ On the Ubuntu Server VM, the folder `/etc/skel` contains the following files:
 
 # Task 1: Create user accounts
 
-1.
-    ```sh
-    getent group jedi rebels # checking if the 2 groups do exist
-    sudo groupadd jedi
-    sudo groupadd rebels
-    ```
+```sh
+getent group jedi rebels # checking if the 2 groups do exist
+sudo groupadd jedi
+sudo groupadd rebels
+```
 
-2.
-    > [!NOTE]
-    > What option do you need to specify to have `useradd` create a home directory?
 
-    There are two ways to do it:
-    Either use the `-d` flag with the path to the home directory or use the `-m` flag without the path (it will infer the home directory path from the username).
+> [!NOTE]
+> What option do you need to specify to have `useradd` create a home directory?
 
-    > [!NOTE]
-    > What is the default login shell for users created with useradd ? What command should we use to change the default login shell from `/bin/sh` to `/bin/bash` ?
+There are two ways to do it:
+Either use the `-d` flag with the path to the home directory or use the `-m` flag without the path (it will infer the home directory path from the username).
 
-    The default login shell is `/bin/sh`. To change it to `/bin/bash`, we can use the `chsh` command.
+> [!NOTE]
+> What is the default login shell for users created with useradd ? What command should we use to change the default login shell from `/bin/sh` to `/bin/bash` ?
 
-3. Create the following user accounts with default home directories and login
-shell
-    ```sh
-    id luke vader solo # checking if the accounts exist
-    sudo useradd -s /bin/bash -m -g jedi -G rebels luke
-    sudo passwd luke
-    sudo useradd -s /bin/bash -m -g jedi vader
-    sudo useradd -s /bin/bash -m -g rebels solo
-    ```
+The default login shell is `/bin/sh`. To change it to `/bin/bash`, we can use the `chsh` command.
+
+> [!NOTE]
+> Create the following user accounts with default home directories and login shell
+```sh
+id luke vader solo # checking if the accounts exist
+sudo useradd -s /bin/bash -m -g jedi -G rebels luke
+sudo passwd luke
+sudo useradd -s /bin/bash -m -g jedi vader
+sudo useradd -s /bin/bash -m -g rebels solo
+```
 
 
 # Task 2: Change group membership
