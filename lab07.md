@@ -27,7 +27,7 @@ On the Ubuntu Server VM, the folder `/etc/skel` contains the following files:
 ```sh
 getent group jedi rebels # checking if the 2 groups do exist
 sudo groupadd jedi
-sudo groudadd rebels
+sudo groupadd rebels
 ```
 
 > What option do you need to specify to have `useradd` create a home directory?
@@ -66,6 +66,7 @@ leia:x:1001:1001::/home/leia:/bin/sh
 $ groups leia
 leia : leia
 ```
+It also created a new group with the same name as the username.
 
 > [!NOTE]
 > Make leia member of the group rebels (as secondary group).
@@ -86,17 +87,20 @@ leia : leia rebels
 <!-- TODO usermod -r -->
 
 ```sh
-$ sudo gpasswd -d leia rebels
-Removing user leia from group rebels
+# Leave the group rebels
+# We can use -r to remove a supplementary group given after -G
+$ sudo usermod -r -G rebels leia
 
-# Alternative (discouraged, ok here as we only have 1 group to specify)
-# $ sudo usermod -G leia leia
+# Alternative way
+# $ sudo gpasswd -d leia rebels
+# Removing user leia from group rebels
 
-$ sudo gpasswd -a leia jedi
-Adding user leia to group jedi
+# Join the group jedi
+$ sudo usermod -a -G jedi leia
 
 # Alternative
-# $ sudo usermod -a -G leia jedi
+# $ sudo gpasswd -a leia jedi
+# Adding user leia to group jedi
 
 $ groups leia
 leia : leia jedi
@@ -106,11 +110,10 @@ leia : leia jedi
 > Make leia leave any secondary group.
 
 ```sh
-$ sudo usermod -G leia leia
+$ sudo usermod -G "" leia # setting the list of supplementary groups to empty
 $ groups leia
 leia : leia
 ```
-We prefer using the `usemod` here as we ONLY want 1 group to remain, which is the user personal group.
 
 # Task 3: Give a user sudo rights
 
@@ -124,7 +127,7 @@ It could be modified like this: `%sudo ALL=(ALL:ALL) NOPASSWD: ALL`
 
 ```sh
 sudo usermod -aG sudo luke # make luke part of the sudo group
-su luke
+su luke # login in another session to see the change applied
 sudo cat /etc/sudoers # now luke can use sudo
 sudo usermod -rG sudo luke # remove luke from the sudo group
 ```
